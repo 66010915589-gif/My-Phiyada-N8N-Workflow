@@ -1,0 +1,117 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        0
+      ],
+      "id": "2baa40c6-d4ba-49df-bf94-5483de95e0cc",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://www.techtalkthai.com/feed/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        -464,
+        0
+      ],
+      "id": "1d35d691-7093-4ffd-9651-168359378f69",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "UCJti59ge7riNmZh",
+          "mode": "list",
+          "cachedResultName": "RSSdatatable",
+          "cachedResultUrl": "/projects/t9S46PIeaOehptYo/datatables/UCJti59ge7riNmZh"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $json.pubDate }}",
+            "News": "={{ $json['content:encodedSnippet'] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "News",
+              "displayName": "News",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [
+        -256,
+        0
+      ],
+      "id": "6975ab74-bf3c-4577-a22c-07a4ef981540",
+      "name": "Insert row"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Insert row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8b9f9715-b889-4c4a-858f-ecb39ab4d7d5",
+  "meta": {
+    "instanceId": "1c288a7f9ae85d674e3f0730b63e36a395b645a9159ceb56a63c37d0fc0450a5"
+  },
+  "id": "keftiBLF3wf4Xvn8",
+  "tags": []
+}
